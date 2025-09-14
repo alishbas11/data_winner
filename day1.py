@@ -1,9 +1,4 @@
-# DAY 1: Conditional Statements and Loops:
-
-
-# Write a program to calculate the total cost of items in a shopping list. 
-# If the total cost exceeds $1000, apply a 10% discount and display the final amount to be paid.
-
+# Day 1: Create a shopping list program that takes input from the user for the number of items they want to buy and their prices.
 
 list_of_items = []
 n = int(input("enter the number of items: "))
@@ -19,7 +14,11 @@ if sum >1000:
     print("your price after discount is: ",discount)
 else:
     print("your total price is: ",shopping_list)
-
+# There is no need to call 'init' from mimetypes or use 'git' here.
+# If you want to save your project using git, you can run the following commands in your terminal:
+# git add .
+# git commit -m "Save project"
+# git push;
 
 
     
