@@ -1,6 +1,5 @@
 # DAY 1: Conditional Statements and Loops:
 
-
 # Write a program to calculate the total cost of items in a shopping list. 
 # If the total cost exceeds $1000, apply a 10% discount and display the final amount to be paid.
 
