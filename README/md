@@ -1,0 +1,52 @@
+
+## Data cleaning 
+1. **Inspect & standardize**
+   - `df.info()`, `df.describe()`, standardize column names: `df.columns = df.columns.str.strip().str.lower()`.
+2. **Drop duplicates** and fix whitespace: `df.drop_duplicates(inplace=True)`.
+3. **Type conversions**
+   - `df['date'] = pd.to_datetime(df['date'], errors='coerce')`
+   - Ensure numeric types for `age`, `fare`, `family`.
+4. **Handle missing values**
+   - `age`: fill with `median` or use `KNNImputer` for better estimates:  
+     `df['age'].fillna(df['age'].median(), inplace=True)`
+   - `embarked`: fill with mode: `df['embarked'].fillna(df['embarked'].mode()[0], inplace=True)`
+   - `fare`: if missing, fill with median for that class.
+5. **Categorical cleaning**
+   - Normalize gender: `df['gender'] = df['gender'].str.capitalize()`
+   - Map categorical → numeric when needed.
+6. **Feature engineering**
+   - `is_alone = (df['family'] == 0).astype(int)`
+   - `age_group = pd.cut(df['age'], bins=[0,12,18,35,60,120], labels=[...])`
+7. **Save cleaned file**
+   - `df.to_csv('data/clean/titanic_cleaned.csv', index=False)`
+
+## Features used / created
+- Original: `passenger_class`, `survived`, `name`, `gender`, `age`, `family`, `fare`, `embarked`, `date`
+- Engineered:
+  - `is_alone` (boolean)
+  - `age_group` (categorical)
+  - `fare_bin` (categorical via `pd.qcut` or `pd.cut`)
+  - `gender_encoded` (0/1)
+
+## Techniques & libraries 
+- Data handling: `pandas`, `numpy`
+- Missing-values: median imputation, mode for categoricals, optional KNN imputer (`sklearn.impute.KNNImputer`)
+- Outlier handling: inspect with boxplots, optionally winsorize or cap
+- Visualization: `matplotlib`, `seaborn` (static, publication-ready), `plotly` (interactive)
+- Reproducibility: Jupyter notebook + scripts, `requirements.txt` to lock dependencies
+
+## Visualizations
+1. **Survival Rate by Gender** — bar chart (Matplotlib / Plotly)  
+   *Insight:* quick comparison of survival rates between male/female.
+2. **Survival by Passenger Class & Gender** — grouped bar chart (Seaborn / Plotly)  
+   *Insight:* shows class × gender survival differences.
+3. **Age Distribution (overall vs survivors)** — histograms / KDE (Matplotlib / Plotly)  
+   *Insight:* age effect on survival.
+4. **Fare Distribution by Class** — boxplot (Seaborn / Plotly)  
+   *Insight:* fare dispersion per class.
+5. **Bonus: Correlation Heatmap** (Seaborn / Plotly)  
+   *Insight:* show correlations between numeric features & survival.
+
+Embed images in README (example):
+```md
+![Survival by Gender](assets/images/survival_by_gender.png)
